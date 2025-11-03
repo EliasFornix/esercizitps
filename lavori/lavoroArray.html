@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Random</title>
 </head>
 <body>
@@ -9,11 +10,13 @@
 <div id="griglia"></div>
 
 <script>
+
 var numeri = [];
 for (var i = 0; i < 100; i++) {
     var n = Math.random() * 200 - 100;
     numeri.push(n);
 }
+
 
 var somma = 0;
 for (var i = 0; i < numeri.length; i++) {
@@ -24,7 +27,7 @@ var media = somma / numeri.length;
 var max = numeri[0];
 var min = numeri[0];
 
-for (var i = 0; i < numeri.length; i++) {
+for (var i = 1; i < numeri.length; i++) {
     if (numeri[i] > max) max = numeri[i];
     if (numeri[i] < min) min = numeri[i];
 }
@@ -32,18 +35,20 @@ for (var i = 0; i < numeri.length; i++) {
 var maggiori50 = [];
 for (var i = 0; i < numeri.length; i++) {
     if (numeri[i] > 50) {
-        maggiori50.push(numeri[i]);
+        maggiori50.push(numeri[i].toFixed(2));
     }
 }
 
 var html = "<table border='1' cellpadding='5'>";
-html += "<tr><td>Media</td><td>" + media.toFixed(2) + "</td></tr>";
-html += "<tr><td>Massimo</td><td>" + max.toFixed(2) + "</td></tr>";
-html += "<tr><td>Minimo</td><td>" + min.toFixed(2) + "</td></tr>";
-html += "<tr><td>Numeri > 50</td><td>" + maggiori50.join(", ") + "</td></tr>";
+html += "<tr><td><b>Media</b></td><td>" + media.toFixed(2) + "</td></tr>";
+html += "<tr><td><b>Massimo</b></td><td>" + max.toFixed(2) + "</td></tr>";
+html += "<tr><td><b>Minimo</b></td><td>" + min.toFixed(2) + "</td></tr>";
+html += "<tr><td><b>Numeri > 50</b></td><td>" + (maggiori50.length > 0 ? maggiori50.join(", ") : "Nessuno") + "</td></tr>";
 html += "</table>";
 
+document.getElementById("griglia").innerHTML = html;
 </script>
 
 </body>
 </html>
+
