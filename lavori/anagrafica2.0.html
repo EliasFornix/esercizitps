@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Anagrafica Utente</title>
+</head>
+<body>
+  <h1>Inserisci i dati dell'utente</h1>
+
+  <form id="anagraficaForm">
+    Nome:<br>
+    <input type="text" id="nome" required><br><br>
+
+    Cognome:<br>
+    <input type="text" id="cognome" required><br><br>
+
+    Indirizzo:<br>
+    <input type="text" id="indirizzo" required><br><br>
+
+    Città:<br>
+    <input type="text" id="citta" required><br><br>
+
+    CAP:<br>
+    <input type="text" id="cap" required><br><br>
+
+    Data di nascita:<br>
+    <input type="date" id="dataNascita" required><br><br>
+
+    Sesso:<br>
+    <input type="radio" name="sesso" value="Maschio" required>Maschio
+    <input type="radio" name="sesso" value="Femmina">Femmina
+    <input type="radio" name="sesso" value="Altro">Altro<br><br>
+
+    Provincia:<br>
+    <select id="provincia" required>
+      <option value="">-- Seleziona --</option>
+      <option value="MI">Milano</option>
+      <option value="RM">Roma</option>
+      <option value="TO">Torino</option>
+      <option value="NA">Napoli</option>
+      <option value="FI">Firenze</option>
+      <option value="VE">Venezia</option>
+    </select><br><br>
+
+    Mezzi posseduti:<br>
+    <input type="checkbox" name="mezzo" value="Auto">Auto
+    <input type="checkbox" name="mezzo" value="Moto">Moto
+    <input type="checkbox" name="mezzo" value="Bici">Bici
+    <input type="checkbox" name="mezzo" value="Aereo">Aereo
+    <input type="checkbox" name="mezzo" value="Yacht">Yacht<br><br>
+
+    Materie preferite (max 3):<br>
+    <select id="materie" multiple size="9">
+      <option value="Italiano">Italiano</option>
+      <option value="Matematica">Matematica</option>
+      <option value="Inglese">Inglese</option>
+      <option value="Storia">Storia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Scienze">Scienze</option>
+      <option value="Arte">Arte</option>
+      <option value="Musica">Musica</option>
+      <option value="Educazione Fisica">Educazione Fisica</option>
+    </select><br><br>
+
+    <button type="submit">Invia</button>
+  </form>
+
+  <h2>Risultato:</h2>
+  <div id="risultato"></div>
+
+
+</body>
+</html>
