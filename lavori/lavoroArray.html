@@ -1,80 +1,84 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Numeri casuali</title>
-  <style>
-    body {
-      font-family: Arial;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-    table {
-      border-collapse: collapse;
-      width: 80%;
-      background-color: #fff;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 5px;
-      text-align: center;
-    }
-    th {
-      background-color: #eee;
-    }
-    .highlight {
-      background-color: #c6ffb3;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Array Numeri</title>
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
+<h2>Array Numeri Casuali</h2>
+<button onclick="generaArray()">Genera Numeri</button>
+<h3>Array Completo:</h3>
+<div id="griglia-array"></div>
+<h3>Statistiche:</h3>
+<p id="media"></p>
+<p id="massimo"></p>
+<p id="minimo"></p>
+<h3>Numeri > 50:</h3>
+<div id="griglia-maggiori"></div>
 
-  <h2>Numeri casuali da -100 a 100</h2>
-  <div id="output"></div>
+<script>
+var arrayNumeri = [];
 
-  <script>
-    var numeri = [];
+function generaArray() {
+    arrayNumeri = [];
+    for (var i = 0; i < 100; i++) {
+        var numero = Math.floor(Math.random() * 201) - 100;
+        arrayNumeri.push(numero);
+    }
+
     var somma = 0;
-    var max = -100;
-    var min = 100;
+    var max = arrayNumeri[0];
+    var min = arrayNumeri[0];
     var maggiori50 = [];
 
-    // genera 100 numeri casuali tra -100 e 100
-    for (var i = 0; i < 100; i++) {
-      var n = Math.floor(Math.random() * 201) - 100; // da -100 a 100
-      numeri[i] = n;
-      somma = somma + n;
-
-      if (n > max) max = n;
-      if (n < min) min = n;
-      if (n > 50) maggiori50.push(n);
+    for (var j = 0; j < arrayNumeri.length; j++) {
+        somma = somma + arrayNumeri[j];
+        if (arrayNumeri[j] > max) {
+            max = arrayNumeri[j];
+        }
+        if (arrayNumeri[j] < min) {
+            min = arrayNumeri[j];
+        }
+        if (arrayNumeri[j] > 50) {
+            maggiori50.push(arrayNumeri[j]);
+        }
     }
 
-    var media = somma / numeri.length;
+    var media = somma / arrayNumeri.length;
 
-    // crea tabella HTML
-    var testo = "<table>";
-    testo += "<tr><th>Indice</th><th>Valore</th></tr>";
+    document.getElementById("media").textContent = "Media: " + media.toFixed(2);
+    document.getElementById("massimo").textContent = "Massimo: " + max;
+    document.getElementById("minimo").textContent = "Minimo: " + min;
 
-    for (var i = 0; i < numeri.length; i++) {
-      if (numeri[i] > 50)
-        testo += "<tr class='highlight'><td>" + i + "</td><td>" + numeri[i] + "</td></tr>";
-      else
-        testo += "<tr><td>" + i + "</td><td>" + numeri[i] + "</td></tr>";
+    var griglia = "<table><tr>";
+    for (var k = 0; k < arrayNumeri.length; k++) {
+        griglia += "<td>" + arrayNumeri[k] + "</td>";
+        if ((k + 1) % 10 == 0) {
+            griglia += "</tr><tr>";
+        }
     }
+    griglia += "</tr></table>";
+    document.getElementById("griglia-array").innerHTML = griglia;
 
-    testo += "</table>";
-
-    testo += "<p><b>Media:</b> " + media.toFixed(2) + "</p>";
-    testo += "<p><b>Massimo:</b> " + max + "</p>";
-    testo += "<p><b>Minimo:</b> " + min + "</p>";
-    testo += "<p><b>Numeri maggiori di 50:</b> " + maggiori50.length + "</p>";
-
-    document.getElementById("output").innerHTML = testo;
-  </script>
-
+    var grigliaMaggiori = "<table><tr>";
+    for (var m = 0; m < maggiori50.length; m++) {
+        grigliaMaggiori += "<td>" + maggiori50[m] + "</td>";
+        if ((m + 1) % 10 == 0) {
+            grigliaMaggiori += "</tr><tr>";
+        }
+    }
+    grigliaMaggiori += "</tr></table>";
+    document.getElementById("griglia-maggiori").innerHTML = grigliaMaggiori;
+}
+</script>
 </body>
 </html>
-
-
-
