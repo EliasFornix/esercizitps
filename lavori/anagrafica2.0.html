@@ -8,22 +8,22 @@
 <body>
 <h2>Inserisci i tuoi dati</h2>
 
-<input id="name" placeholder="Nome"><br>
-<input id="surname" placeholder="Cognome"><br>
-<input id="DOB" type="date"><br>
-<input id="address" placeholder="Indirizzo"><br>
-<input id="city" placeholder="Città"><br>
-<input id="postal-code" placeholder="CAP"><br>
-<input id="prov" placeholder="Provincia"><br><br>
+<input id="nome" placeholder="Nome"><br>
+<input id="cognome" placeholder="Cognome"><br>
+<input id="data-nascita" type="date"><br>
+<input id="indirizzo" placeholder="Indirizzo"><br>
+<input id="citta" placeholder="Città"><br>
+<input id="cap" placeholder="CAP"><br>
+<input id="provincia" placeholder="Provincia"><br><br>
 
-<label><input type="radio" name="sesso" value="Maschio"> Maschio</label>
-<label><input type="radio" name="sesso" value="Femmina"> Femmina</label><br><br>
+<label><input type="radio" name="genere" value="Maschio"> Maschio</label>
+<label><input type="radio" name="genere" value="Femmina"> Femmina</label><br><br>
 
-<label><input type="checkbox" name="locomozione" value="Auto"> Auto</label>
-<label><input type="checkbox" name="locomozione" value="Bici"> Bici</label>
-<label><input type="checkbox" name="locomozione" value="Moto"> Moto</label><br><br>
+<label><input type="checkbox" name="mezzo" value="Auto"> Auto</label>
+<label><input type="checkbox" name="mezzo" value="Bici"> Bici</label>
+<label><input type="checkbox" name="mezzo" value="Moto"> Moto</label><br><br>
 
-<select id="materie">
+<select id="materia">
   <option value="Matematica">Matematica</option>
   <option value="Storia">Storia</option>
   <option value="Informatica">Informatica</option>
@@ -32,92 +32,108 @@
 <button onclick="generaScheda()">Genera Scheda</button>
 
 <h3>Risultato:</h3>
-<p id="nameO"></p>
-<p id="surnameO"></p>
-<p id="addressO"></p>
-<p id="cityO"></p>
-<p id="postal-codeO"></p>
-<p id="DOBO"></p>
-<p id="sessoO"></p>
-<p id="provO"></p>
-<p id="locomozioneO"></p>
-<p id="materieO"></p>
+<p id="nome-stampa"></p>
+<p id="cognome-stampa"></p>
+<p id="indirizzo-stampa"></p>
+<p id="citta-stampa"></p>
+<p id="cap-stampa"></p>
+<p id="data-stampa"></p>
+<p id="genere-stampa"></p>
+<p id="provincia-stampa"></p>
+<p id="mezzi-stampa"></p>
+<p id="materia-stampa"></p>
 
 <script>
-const nomeField = document.getElementById('name');
-const cognomeField = document.getElementById('surname');
-const nascitaField = document.getElementById('DOB');
-const indirizzoField = document.getElementById('address');
-const cittaField = document.getElementById('city');
-const capField = document.getElementById('postal-code');
-const provinciaField = document.getElementById('prov');
-const sessoRadio = document.getElementsByName('sesso');
-const trasportoCheck = document.getElementsByName('locomozione');
-const materiaSelect = document.getElementById('materie');
+var campoNome = document.getElementById('nome');
+var campoCognome = document.getElementById('cognome');
+var campoData = document.getElementById('data-nascita');
+var campoIndirizzo = document.getElementById('indirizzo');
+var campoCitta = document.getElementById('citta');
+var campoCap = document.getElementById('cap');
+var campoProvincia = document.getElementById('provincia');
+var campoGenere = document.getElementsByName('genere');
+var campoMezzi = document.getElementsByName('mezzo');
+var campoMateria = document.getElementById('materia');
 
-const nomeOut = document.getElementById('nameO');
-const cognomeOut = document.getElementById('surnameO');
-const indirizzoOut = document.getElementById('addressO');
-const cittaOut = document.getElementById('cityO');
-const capOut = document.getElementById('postal-codeO');
-const nascitaOut = document.getElementById('DOBO');
-const sessoOut = document.getElementById('sessoO');
-const provinciaOut = document.getElementById('provO');
-const trasportoOut = document.getElementById('locomozioneO');
-const materiaOut = document.getElementById('materieO');
+var stampaNome = document.getElementById('nome-stampa');
+var stampaCognome = document.getElementById('cognome-stampa');
+var stampaIndirizzo = document.getElementById('indirizzo-stampa');
+var stampaCitta = document.getElementById('citta-stampa');
+var stampaCap = document.getElementById('cap-stampa');
+var stampaData = document.getElementById('data-stampa');
+var stampaGenere = document.getElementById('genere-stampa');
+var stampaProvincia = document.getElementById('provincia-stampa');
+var stampaMezzi = document.getElementById('mezzi-stampa');
+var stampaMateria = document.getElementById('materia-stampa');
 
-const generazioniSociali = {
-    "Greatest Generation": { start: 1901, end: 1927 },
-    "Silent Generation": { start: 1928, end: 1945 },
-    "Baby Boomers": { start: 1946, end: 1964 },
-    "Generation X": { start: 1965, end: 1980 },
-    "Millennials": { start: 1981, end: 1996 },
-    "Generation Z": { start: 1997, end: 2012 },
-    "Generation Alpha": { start: 2013, end: 2025 }
-};
+var fasceGenerazione = [
+    { nome: "Greatest Generation", inizio: 1901, fine: 1927 },
+    { nome: "Generazione Silenziosa", inizio: 1928, fine: 1945 },
+    { nome: "Baby Boomers", inizio: 1946, fine: 1964 },
+    { nome: "Generazione X", inizio: 1965, fine: 1980 },
+    { nome: "Millennials", inizio: 1981, fine: 1996 },
+    { nome: "Generazione Z", inizio: 1997, fine: 2012 },
+    { nome: "Generazione Alpha", inizio: 2013, fine: 2025 }
+];
 
 function generaScheda() {
-    const nome = nomeField.value;
-    const cognome = cognomeField.value;
-    const dataNascita = nascitaField.value;
-    const indirizzo = indirizzoField.value;
-    const citta = cittaField.value;
-    const cap = capField.value;
-    const provincia = provinciaField.value;
-    const dataObj = new Date(dataNascita);
-    let generazione = "Generazione sconosciuta";
-    for (const gen in generazioniSociali) {
-        const { start, end } = generazioniSociali[gen];
-        if (dataObj.getFullYear() >= start && dataObj.getFullYear() <= end) {
-            generazione = gen;
-            break;
+    var nome = campoNome.value;
+    var cognome = campoCognome.value;
+    var data = campoData.value;
+    var indirizzo = campoIndirizzo.value;
+    var citta = campoCitta.value;
+    var cap = campoCap.value;
+    var provincia = campoProvincia.value;
+
+    var annoNascita = parseInt(data.substring(0, 4));
+
+    var generazione = "Generazione sconosciuta";
+    for (var i = 0; i < fasceGenerazione.length; i++) {
+        if (annoNascita >= fasceGenerazione[i].inizio && annoNascita <= fasceGenerazione[i].fine) {
+            generazione = fasceGenerazione[i].nome;
         }
     }
-    let sesso = "Non specificato";
-    for (const s of sessoRadio) {
-        if (s.checked) {
-            sesso = s.value;
-            break;
+
+    var genere = "Non specificato";
+    for (var j = 0; j < campoGenere.length; j++) {
+        if (campoGenere[j].checked) {
+            genere = campoGenere[j].value;
         }
     }
-    let mezzi = [];
-    for (const mezzo of trasportoCheck) {
-        if (mezzo.checked) {
-            mezzi.push(mezzo.value);
+
+    var mezzi = [];
+    for (var k = 0; k < campoMezzi.length; k++) {
+        if (campoMezzi[k].checked) {
+            mezzi.push(campoMezzi[k].value);
         }
     }
-    nomeOut.textContent = `Nome: ${nome}`;
-    cognomeOut.textContent = `Cognome: ${cognome}`;
-    indirizzoOut.textContent = `Indirizzo: ${indirizzo}`;
-    cittaOut.textContent = `Città: ${citta}`;
-    capOut.textContent = `CAP: ${cap}`;
-    nascitaOut.textContent = `Data di nascita: ${dataObj.toLocaleDateString()} (${generazione})`;
-    sessoOut.textContent = `Sesso: ${sesso}`;
-    provinciaOut.textContent = `Provincia: ${provincia}`;
-    trasportoOut.textContent = `Mezzi di locomozione: ${mezzi.join(', ') || 'Nessuno'}`;
-    materiaOut.textContent = `Materia preferita: ${materiaSelect.value}`;
+
+    var listaMezzi = "";
+    if (mezzi.length == 0) {
+        listaMezzi = "Nessuno";
+    } else {
+        for (var n = 0; n < mezzi.length; n++) {
+            if (n == 0) {
+                listaMezzi = mezzi[n];
+            } else {
+                listaMezzi = listaMezzi + ", " + mezzi[n];
+            }
+        }
+    }
+
+    stampaNome.textContent = "Nome: " + nome;
+    stampaCognome.textContent = "Cognome: " + cognome;
+    stampaIndirizzo.textContent = "Indirizzo: " + indirizzo;
+    stampaCitta.textContent = "Città: " + citta;
+    stampaCap.textContent = "CAP: " + cap;
+    stampaData.textContent = "Data di nascita: " + data + " (" + generazione + ")";
+    stampaGenere.textContent = "Genere: " + genere;
+    stampaProvincia.textContent = "Provincia: " + provincia;
+    stampaMezzi.textContent = "Mezzi di locomozione: " + listaMezzi;
+    stampaMateria.textContent = "Materia preferita: " + campoMateria.value;
 }
 </script>
 </body>
 </html>
+
 
