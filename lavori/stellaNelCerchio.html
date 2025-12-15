@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Stella a 5 punte nel cerchio</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="tela" width="400" height="400"></canvas>
+
+<script>
+    const tela = document.getElementById("tela");
+    const contesto = tela.getContext("2d");
+
+    const centroX = tela.width / 2;
+    const centroY = tela.height / 2;
+    const raggio = 150;
+
+    contesto.beginPath();
+    contesto.arc(centroX, centroY, raggio, 0, 2 * Math.PI);
+    contesto.stroke();
+
+    const punte = 5;
+    const raggioEsterno = raggio;
+    const raggioInterno = raggio * 0.4;
+    let rotazione = Math.PI / 2 * 3;
+    let x;
+    let y;
+    const passo = Math.PI / punte;
+
+    contesto.beginPath();
+    contesto.moveTo(centroX, centroY - raggioEsterno);
+
+    for (let i = 0; i < punte; i++) {
+        x = centroX + Math.cos(rotazione) * raggioEsterno;
+        y = centroY + Math.sin(rotazione) * raggioEsterno;
+        contesto.lineTo(x, y);
+        rotazione += passo;
+
+        x = centroX + Math.cos(rotazione) * raggioInterno;
+        y = centroY + Math.sin(rotazione) * raggioInterno;
+        contesto.lineTo(x, y);
+        rotazione += passo;
+    }
+
+    contesto.lineTo(centroX, centroY - raggioEsterno);
+    contesto.closePath();
+    contesto.stroke();
+</script>
+
+</body>
+</html>
