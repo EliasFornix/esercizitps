@@ -3,6 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Validazione form</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f6f8;
+      padding: 40px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #007acc;
+      outline: none;
+    }
+
+    input[type="button"] {
+      margin-top: 20px;
+      background-color: #007acc;
+      color: #ffffff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input[type="button"]:hover {
+      background-color: #005fa3;
+    }
+  </style>
+
   <script>
     function valida() {
       const nome = document.invio.nome.value;
@@ -39,12 +90,6 @@
         return false;
       }
 
-      if (password[0] !== password[0].toUpperCase()) {
-        alert("La password deve iniziare con una lettera maiuscola");
-        document.invio.password.focus();
-        return false;
-      }
-
       if (!caratteriSpeciali.test(password)) {
         alert("La password deve contenere almeno un carattere speciale (@ # ? $ - _)");
         document.invio.password.focus();
@@ -68,22 +113,23 @@
     }
   </script>
 </head>
+
 <body>
 
 <form method="post" action="#" name="invio">
-  <label>Nome</label>
+  <label for="nome">Nome</label>
   <input type="text" name="nome">
 
-  <label>Telefono</label>
+  <label for="telefono">Telefono</label>
   <input type="text" name="telefono">
 
-  <label>Email</label>
+  <label for="email">Email:</label>
   <input type="text" name="email">
 
-  <label>Password</label>
+  <label for="password">Password</label>
   <input type="password" name="password">
 
-  <label>Conferma password</label>
+  <label for="conferma">Conferma password</label>
   <input type="password" name="conferma">
 
   <br>
@@ -92,4 +138,3 @@
 
 </body>
 </html>
-
