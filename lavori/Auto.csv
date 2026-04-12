@@ -1,0 +1,7 @@
+categoria,marca,modello,anno,km,prezzo,carburante,colore
+Auto,Fiat,500,2022,15000,14900.00,Benzina,Rosso
+Auto,Toyota,Corolla,2023,5000,24500.00,Ibrido,Bianco Perla
+Auto,Volkswagen,Golf 8,2021,30000,22000.00,Benzina,Grigio Metallizzato
+Auto,Tesla,Model 3,2023,8000,39900.00,Elettrico,Nero
+Auto,BMW,Serie 3,2022,20000,38500.00,Diesel,Blu Metallizzato
+Auto,Renault,Clio,2023,12000,16800.00,Benzina,Arancione
